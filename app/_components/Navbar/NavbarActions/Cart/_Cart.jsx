@@ -32,10 +32,10 @@ const Cart = () => {
     router.push('/cart')
     setIsOpen(false)
   }
-
-  const handleTotal = () => {
-    cart.items.reduce((total, item) => total + Number(item.price), 0)
-  }
+  
+  const totalPrice = cart.items.reduce((total, item) => {
+    return total + Number(item.price);
+  }, 0);
 
   return (
     <div className="relative" ref={dropdownRef}>
@@ -81,7 +81,7 @@ const Cart = () => {
               <div className="flex justify-between items-center text-base font-medium text-gray-900 mb-4">
                 <p>Subtotal</p>
                 <Currency
-                 value={handleTotal} />
+                 value={totalPrice} />
               </div>
               <Button 
               className="w-full"

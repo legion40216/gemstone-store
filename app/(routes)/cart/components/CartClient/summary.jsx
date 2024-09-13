@@ -7,8 +7,9 @@ import React from 'react'
 
 export default function Summary() {
     const [searchParams] = useSearchParams();
-    const items = useCart((state) => state.items);
     const removeAll = useCart((state) => state.removeAll);
+
+    const items = useCart((state) => state.items);
     
     const totalPrice = items.reduce((total, item) => {
       return total + Number(item.price);
