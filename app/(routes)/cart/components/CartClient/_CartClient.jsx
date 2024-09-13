@@ -1,9 +1,8 @@
 "use client"
-import React from 'react'
-import CartItem from './components/cart-item'
 import useCart from '@/hooks/useCartStore';
-import Summary from './components/summary';
-import CartClient from './components/CartClient/CartClient';
+import React from 'react'
+import CartItem from './cart-item';
+import Summary from './summary';
 
 export default function CartClient() {
     const cart = useCart();

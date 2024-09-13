@@ -24,6 +24,7 @@ export default function SP() {
 
     const handleAddToCart = () => {
       addItem(data); 
+      closeModal()
     };
   
     return (

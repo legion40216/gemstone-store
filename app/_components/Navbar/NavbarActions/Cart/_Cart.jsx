@@ -31,6 +31,7 @@ const Cart = () => {
 
   const handleClick = () =>{
     router.push('/cart')
+    setIsOpen(false)
   }
 
   return (
