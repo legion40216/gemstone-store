@@ -5,10 +5,11 @@ import { useState, useMemo } from 'react';
 
 
   import React from 'react'
-import MobileFilters from './mobile-filters';
+import MobileFilters from './MobileFilters';
 
 import ProductCard from '@/components/custom-ui/ProductCard/_ProductCard';
 import Filter from './Filter';
+import ProductList from '@/app/(routes)/_components/ProductList/_ProductList';
   
   export default function ProductFilter({ products, sizes, colors, category }) {
     const [selectedSize, setSelectedSize] = useState(null);
@@ -46,12 +47,9 @@ import Filter from './Filter';
               />
             </div>
             <div className="lg:col-span-4">
-              {filteredProducts.length === 0 && <div>No results found.</div>}
-              <div className="multiple-grid gap-3">
-                {filteredProducts.map(item => (
-                  <ProductCard key={item.id} item={item} />
-                ))}
-              </div>
+            <ProductList 
+                items={products}
+                />
             </div>
           </div>
         </div>

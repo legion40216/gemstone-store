@@ -6,7 +6,8 @@ import getCategory from '@/app/actions/get-category'
 import Filter from './components/Filter'
 
 import ProductCard from '../../../../components/custom-ui/ProductCard/_ProductCard'
-import MobileFilters from './components/mobile-filters'
+import MobileFilters from './components/MobileFilters'
+import ProductList from '../../_components/ProductList/_ProductList'
 
 export const revalidate = 0
 
@@ -39,13 +40,10 @@ export default async function Page({ params, searchParams }) {
               data={colors}
             />
           </div>
-          <div className="lg:col-span-4">
-            {products.length === 0 && <div>No results found.</div>}
-            <div className="multiple-grid gap-3">
-              {products.map((item) => (
-                <ProductCard key={item.id} item={item} />
-              ))}
-            </div>
+          <div className="col-span-4">
+          <ProductList 
+          items={products}
+          />
           </div>
         </div>
       </div>

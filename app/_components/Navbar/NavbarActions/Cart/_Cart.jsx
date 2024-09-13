@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { ShoppingBag } from "lucide-react";
 import useCart from '@/hooks/useCartStore';
-import Image from 'next/image';
 import Currency from '@/components/custom-ui/ProductCard/currency';
 import CartItem from './cart-item';
 import { useRouter } from 'next/navigation';
@@ -29,16 +28,27 @@ const Cart = () => {
     };
   }, []);
 
-  const handleClick = () =>{
+  const handleClick = () => {
     router.push('/cart')
     setIsOpen(false)
   }
 
+  const handleTotal = () => {
+    cart.items.reduce((total, item) => total + Number(item.price), 0)
+  }
+
   return (
     <div className="relative" ref={dropdownRef}>
-      <Button variant="outline" size="icon" className="relative" onClick={() => setIsOpen(!isOpen)}>
+      <Button 
+      variant="outline" 
+      size="icon" 
+      className="relative" 
+      onClick={() => setIsOpen(!isOpen)}
+      >
         <ShoppingBag className="h-6 w-6" />
-        <span className="absolute -top-2 -right-2 h-5 w-5 rounded-full bg-black text-white text-xs flex items-center justify-center">
+        <span className="absolute -top-2 -right-2 h-5 w-5 rounded-full 
+        bg-black text-white text-xs flex items-center justify-center"
+        >
           {cart.items.length}
         </span>
       </Button>
@@ -54,18 +64,24 @@ const Cart = () => {
                 <CartItem key={item.id} item={item} />
               ))
             ) : (
-              <div className="p-4 text-center">
-                <ShoppingBag className="h-16 w-6 text-gray-400 mx-auto" />
-                <h2 className="mt-4 text-lg font-semibold">Your cart is empty</h2>
-                <p className="mt-2 text-sm text-gray-500">Add some items to your cart to get started.</p>
-              </div>
+            <div className="p-4 text-center">
+              <ShoppingBag className="h-16 w-16 text-gray-400 mx-auto" />
+              <h2 className="mt-4 text-lg font-semibold">
+                Your cart is empty
+              </h2>
+              <p className="mt-2 text-sm text-gray-500">
+                Add some items to your cart to get started.
+              </p>
+            </div>
             )}
           </ScrollArea>
+
           {cart.items.length > 0 && (
             <div className="p-4 border-t">
               <div className="flex justify-between items-center text-base font-medium text-gray-900 mb-4">
                 <p>Subtotal</p>
-                <Currency value={cart.items.reduce((total, item) => total + Number(item.price), 0)} />
+                <Currency
+                 value={handleTotal} />
               </div>
               <Button 
               className="w-full"

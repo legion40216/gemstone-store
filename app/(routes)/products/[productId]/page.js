@@ -20,7 +20,7 @@ export default async function Page({params}) {
   return (
 <div className="space-y-6">
   <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-    <div className="sticky top-20">
+    <div>
       <Gallery images={product.images} />
     </div>
     <div className=" space-y-8">

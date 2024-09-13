@@ -58,7 +58,7 @@ export default function ProductDetails({
         </Button>
         
         <Button 
-        className=" p-3 py-6 rounded-full"
+        className=" p-2 py-5 rounded-full"
         variant="outline"
         >
           <Heart className="w-6 h-6" />

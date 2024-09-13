@@ -7,7 +7,7 @@ import ProductList from './_components/ProductList/_ProductList'
 export const revalidate = 0
 
 export default async function page() {
-  const billboard = await getBillboard("ab0b3910-0048-496a-a446-0db5138f4ec6")
+  const billboard = await getBillboard("398c0d41-e1d2-400c-8509-ecfea3e79f7e")
   const products = await getProducts()
 
   const featuredProducts = products.filter(product => product.isFeatured)

@@ -1,6 +1,7 @@
 "use client"
 import Currency from '@/components/custom-ui/ProductCard/currency'
 import IconButton from '@/components/custom-ui/ProductCard/icon-button'
+import { Button } from '@/components/ui/button'
 import useCart from '@/hooks/useCartStore'
 import { X } from 'lucide-react'
 import Image from 'next/image'
@@ -27,10 +28,12 @@ export default function CartItem({
 
   <div className="relative ml-4 flex flex-1 flex-col justify-between sm:ml-6">
     <div className="absolute z-10 right-0 top-0">
-      <IconButton 
-      onClick={handleRemove} 
-      icon={<X size={15} />} 
-      />
+      <Button
+        variant="outline" 
+        onClick={handleRemove} 
+        className="ml-4">
+          <X size={15} />
+      </Button>
     </div>
     <div className="relative pr-9 grid grid-cols-2 gap-x-6 sm:gap-x-6 sm:pr-0">
       <div className="flex justify-between">

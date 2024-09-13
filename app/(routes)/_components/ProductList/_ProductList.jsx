@@ -1,7 +1,6 @@
 "use client"
 import React from 'react'
-import NoResults from '@/components/custom-ui/no-results'
-import ProductCard from '@/components/custom-ui/ProductCard/_ProductCard'
+import ProductItem from './product-Item'
 
 export default function ProductList({
     title,
@@ -14,20 +13,9 @@ export default function ProductList({
                 {title}
              </h3>
         </div>
-        <div>
-            {items.length > 0 ? (
-                <div className="multiple-grid gap-3">
-                    {items.map((item) => (
-                      <ProductCard 
-                        key={item.id}
-                        item={item}
-                      />
-                    ))}
-                </div>
-            ) : ( 
-              <NoResults/>
-            )}
-        </div>
+        <ProductItem 
+        items={items}
+        />
     </div>
   )
 }
