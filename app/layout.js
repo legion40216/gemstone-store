@@ -1,16 +1,13 @@
-import localFont from "next/font/local";
+import ProductModal from "@/components/ProductModal/_ProductModal";
+import Footer from "./_components/Footer";
+import Navbar from "./_components/Navbar/_Navbar";
 import "./globals.css";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+import { Raleway } from 'next/font/google'
+import { Toaster } from "sonner";
+
+
+const font =  Raleway({ subsets: ['latin'] })
 
 export const metadata = {
   title: "Create Next App",
@@ -20,10 +17,26 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+       
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      className={`${font.className} antialiased`}
       >
-        {children}
+       <Toaster />
+        <ProductModal />
+       <div className="space-y-6">
+        <header className="container-full-content border-b 
+      border-gray-200">
+          <Navbar/>
+        </header>
+
+        <main className="container-full-content">
+          <div className="container">
+          {children}
+          </div>
+        </main>
+
+        <Footer/>
+        </div>
       </body>
     </html>
   );
