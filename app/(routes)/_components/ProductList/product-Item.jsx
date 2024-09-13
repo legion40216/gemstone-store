@@ -1,3 +1,4 @@
+import NoResults from '@/components/custom-ui/no-results'
 import ProductCard from '@/components/custom-ui/ProductCard/_ProductCard'
 import React from 'react'
 
