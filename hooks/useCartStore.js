@@ -9,8 +9,15 @@ const useCart = create(
 
       addItem: (data, count = 1) => {
         const currentItems = get().items;
+      
+        // Check if the item is out of stock
+        if (data.quantity === 0) {
+          toast.error('Item is out of stock.');
+          return;
+        }
+      
         const existingItem = currentItems.find((item) => item.id === data.id);
-        console.log(existingItem)
+      
         if (existingItem) {
           const newCount = Math.min(count, data.quantity);
           set({
