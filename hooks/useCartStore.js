@@ -10,7 +10,7 @@ const useCart = create(
       addItem: (data, count = 1) => {
         const currentItems = get().items;
         const existingItem = currentItems.find((item) => item.id === data.id);
-        
+        console.log(existingItem)
         if (existingItem) {
           const newCount = Math.min(count, data.quantity);
           set({
@@ -18,7 +18,6 @@ const useCart = create(
               item.id === data.id ? { ...item, count: newCount } : item
             ),
           });
-          toast.success('Item quantity updated in cart.');
         } else {
           const newCount = Math.min(count, data.quantity);
           set({ items: [...currentItems, { ...data, count: newCount }] });

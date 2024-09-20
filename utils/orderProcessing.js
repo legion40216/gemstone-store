@@ -9,12 +9,12 @@ export const processOrder = {
     // Implement Stripe checkout logic here
   },
 
-  processCashOnDeliveryOrder: async (orderData, router, cart) => {  // Pass router and cart
+  processCashOnDeliveryOrder: async (orderData, cart, setStep) => {  // Pass router and cart
     const toastId = toast.loading("Please be patient, your order is being processed");
     try {
       await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/orders`, orderData);
       toast.success("Your order has been placed using Cash on Delivery.");
-      handleSuccessfulOrder(router, cart);  // Pass router and cart
+      handleSuccessfulOrder(cart,setStep);  
     } catch (error) {
       console.log(error);
       if (error.response && error.response.data) {
@@ -37,9 +37,8 @@ export const processOrder = {
 };
 
 // handleSuccessfulOrder now receives router and cart as arguments
-const handleSuccessfulOrder = (router, cart) => {
+const handleSuccessfulOrder = (cart,setStep) => {
   // Clear the cart
-  // Redirect to homepage
-  router.push('/');
   cart.removeAll();
+  setStep("order-confirmation")
 };
