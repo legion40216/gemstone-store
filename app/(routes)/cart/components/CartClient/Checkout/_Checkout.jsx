@@ -109,7 +109,6 @@ export default function Checkout() {
       {step === 'order-confirmation' && confirmedOrderData && (
         <OrderConfirmationStep 
           orderData={confirmedOrderData}
-          setStep={setStep}
         />
       )}
     </div>

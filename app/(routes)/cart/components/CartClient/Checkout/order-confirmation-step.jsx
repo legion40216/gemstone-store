@@ -6,8 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { CheckCircle, Package, Truck, Home, CreditCard } from 'lucide-react';
 
-const OrderConfirmationStep = ({ orderData, setStep }) => {
-  const [showConfetti, setShowConfetti] = useState(true);
+const OrderConfirmationStep = ({ orderData }) => {
   const router = useRouter();
 
   useEffect(() => {
@@ -99,7 +98,6 @@ const OrderConfirmationStep = ({ orderData, setStep }) => {
       <div className="flex justify-between items-center">
         <Button onClick={() => {
           router.push('/')
-          setStep('cart')
         }} 
         variant="outline"
         >
