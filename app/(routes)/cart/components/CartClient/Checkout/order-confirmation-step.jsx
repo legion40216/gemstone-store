@@ -6,24 +6,21 @@ import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { CheckCircle, Package, Truck, Home, CreditCard } from 'lucide-react';
 
-const OrderConfirmationStep = ({ 
-  items,
-  setConfirmationCart,
-  customerInfo,
-  totalPrice, 
-  paymentMethod
- }) => {
+const OrderConfirmationStep = ({ orderData, setStep }) => {
+  const [showConfetti, setShowConfetti] = useState(true);
   const router = useRouter();
 
-   useEffect(() => {
+  useEffect(() => {
     const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
   
     confetti({
       particleCount: 100,
-      origin: { x: 0.5, y: 0.5 }, // Center of the screen
+      origin: { x: 0.5, y: 0.5 },
       ...defaults,
     });
   }, []);
+
+  const { customerInfo, items, totalPrice, paymentMethod } = orderData;
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-3xl">
@@ -102,10 +99,10 @@ const OrderConfirmationStep = ({
       <div className="flex justify-between items-center">
         <Button onClick={() => {
           router.push('/')
-          setConfirmationCart(null)
-          }} 
-          variant="outline"
-          >
+          setStep('cart')
+        }} 
+        variant="outline"
+        >
           Continue Shopping
         </Button>
         <Button onClick={() => {/* Implement order tracking logic */}}>

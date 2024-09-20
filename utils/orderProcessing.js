@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { toast } from 'sonner';
 
-// Adjusted orderProcessing.js
 export const processOrder = {
   initiateStripeCheckout: async (orderData) => {
     console.log('Initiating Stripe checkout for:', orderData);
@@ -9,36 +8,30 @@ export const processOrder = {
     // Implement Stripe checkout logic here
   },
 
-  processCashOnDeliveryOrder: async (orderData, cart, setStep) => {  // Pass router and cart
+  processCashOnDeliveryOrder: async (orderData) => {
     const toastId = toast.loading("Please be patient, your order is being processed");
     try {
       await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/orders`, orderData);
       toast.success("Your order has been placed using Cash on Delivery.");
-      handleSuccessfulOrder(cart,setStep);  
+      return orderData;
     } catch (error) {
-      console.log(error);
+      console.error(error);
       if (error.response && error.response.data) {
         toast.error(error.response.data);
       } else {
         toast.error("Server Error: Unable to process the request");
       }
+      throw error;
     } finally {
       toast.dismiss(toastId);
     }
   },
 
-  placeOrder: (orderData, paymentMethod, router, cart) => {  // Pass router and cart here as well
+  placeOrder: async (orderData, paymentMethod) => {
     if (paymentMethod === 'stripe') {
-      processOrder.initiateStripeCheckout(orderData);
+      return processOrder.initiateStripeCheckout(orderData);
     } else {
-      processOrder.processCashOnDeliveryOrder(orderData, router, cart);  // Pass router and cart
+      return processOrder.processCashOnDeliveryOrder(orderData);
     }
   }
-};
-
-// handleSuccessfulOrder now receives router and cart as arguments
-const handleSuccessfulOrder = (cart,setStep) => {
-  // Clear the cart
-  cart.removeAll();
-  setStep("order-confirmation")
 };

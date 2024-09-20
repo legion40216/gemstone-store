@@ -21,8 +21,7 @@ export default function Checkout() {
   });
   const [isOrderPlaced, setIsOrderPlaced] = useState(false);
   const cart = useCart();
-  const [confirmationCart, setConfirmationCart] = useState(cart.items);
-  const [confirmationTotalPrice, setConfirmationTotalPrice] = useState(0)
+  const [confirmedOrderData, setConfirmedOrderData] = useState(null);
 
   useEffect(() => {
     if (cart.items.length === 0 && step !== 'cart' && !isOrderPlaced) {
@@ -47,7 +46,7 @@ export default function Checkout() {
     setStep('order-summary');
   };
 
-  const handlePlaceOrder = () => {
+  const handlePlaceOrder = async () => {
     if (!customerInfo.name) {
       toast.error("Customer information is missing. Please fill out the form.");
       setStep('customer-info');
@@ -58,6 +57,7 @@ export default function Checkout() {
       customerInfo,
       items: cart.items.map(item => ({
         id: item.id,
+        name: item.name,
         count: item.count,
         price: item.price,
       })),
@@ -66,8 +66,15 @@ export default function Checkout() {
     };
 
     setIsOrderPlaced(true);
-    setConfirmationTotalPrice(totalPrice)
-    processOrder.placeOrder(orderData, paymentMethod, cart, setStep);
+    try {
+      await processOrder.placeOrder(orderData, paymentMethod);
+      setConfirmedOrderData(orderData);
+      cart.removeAll();
+      setStep('order-confirmation');
+    } catch (error) {
+      toast.error("Failed to place order. Please try again.");
+      setIsOrderPlaced(false);
+    }
   };
 
   return (
@@ -85,7 +92,7 @@ export default function Checkout() {
       {step === 'customer-info' && (
         <CustomerInfoStep 
           onSubmit={handleCustomerInfoSubmit}
-          customerInfo={customerInfo} // Pass current customer info
+          customerInfo={customerInfo}
           onBack={() => setStep('cart')}
         />
       )}
@@ -99,13 +106,10 @@ export default function Checkout() {
           onBack={() => setStep('customer-info')}
         />
       )}
-      {step === 'order-confirmation' && (
+      {step === 'order-confirmation' && confirmedOrderData && (
         <OrderConfirmationStep 
-          items={confirmationCart || []}
-          setConfirmationCart={setConfirmationCart}
-          customerInfo={customerInfo}
-          totalPrice={confirmationTotalPrice}
-          paymentMethod={paymentMethod}
+          orderData={confirmedOrderData}
+          setStep={setStep}
         />
       )}
     </div>
