@@ -9,7 +9,7 @@ export const revalidate = 0
 export default async function page() {
   const billboard = await getBillboard("398c0d41-e1d2-400c-8509-ecfea3e79f7e")
   const products = await getProducts()
-  console.log(products)
+
   const featuredProducts = products.filter(product => product.isFeatured)
   const nonFeaturedProducts = products.filter(product => !product.isFeatured)
 

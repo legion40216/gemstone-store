@@ -2,9 +2,10 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Heart, ShoppingCart, Plus, Minus } from 'lucide-react';
+import { Heart, ShoppingCart, Plus, Minus, MapPin } from 'lucide-react';
 import useCart from '@/hooks/useCartStore';
 import { toast } from 'sonner';
+import { getCountryName } from '@/lib/getCountries';
 
 export default function ProductDetails({ product }) {
   const { items, addItem, getItemCount } = useCart();
@@ -49,7 +50,7 @@ export default function ProductDetails({ product }) {
       {/* Color and Size */}
       <div className="space-y-5">
         <div className="flex gap-4 items-center">
-          <h3 className="text-sm font-medium">Color</h3>
+          <h3 className="text-sm font-medium">Color:</h3>
           <div
             className="h-6 w-6 rounded-full"
             style={{ backgroundColor: product.color.value }}
@@ -57,8 +58,15 @@ export default function ProductDetails({ product }) {
         </div>
 
         <div className="flex gap-4 items-center">
-          <h3 className="text-sm font-medium">Size</h3>
+          <h3 className="text-sm font-medium">Size:</h3>
           <Badge className="text-base" variant="secondary">{product.size.value}</Badge>
+        </div>
+
+        <div className="flex gap-3">
+          <span className="text-muted-foreground">Location:</span>  
+          <span className="flex items-center">
+            {getCountryName(product.location)}
+          </span>
         </div>
       </div>
 
