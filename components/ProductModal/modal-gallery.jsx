@@ -9,16 +9,10 @@ const ModalGallery = ({ images }) => {
   return (
     <div className="flex flex-col sm:flex-row gap-3">
     {/* Main Image Container */}
-    <div className="relative w-full aspect-square overflow-hidden rounded-lg">
-      <Image
-        src={mainImage.url}
-        alt="Main product image"
-        className="object-contain"
-        fill
-        sizes="(max-width: 640px) 100vw, 75vw"
-        priority
-      />
-    </div>
+    <img 
+      src={mainImage.url}
+      className="w-full h-full"
+     />
 
     {/* Thumbnail Images */}
     <div className="flex flex-row sm:flex-col gap-3">

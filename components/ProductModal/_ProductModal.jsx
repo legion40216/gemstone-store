@@ -16,15 +16,14 @@ import { Heart, ShoppingCart } from 'lucide-react';
 
 export default function SP() {
     const { isOpen, data, closeModal } = useModalStore();
-    const { addItem } = useCart();  
+    const {addItem} = useCart()
 
     if (!isOpen || !data) {
       return null;
     }
 
     const handleAddToCart = () => {
-      addItem(data); 
-      closeModal()
+      addItem({...data}); 
     };
   
     return (

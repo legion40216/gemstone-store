@@ -1,13 +1,11 @@
-import getColors from '@/app/actions/get-colors'
-import getProducts from '@/app/actions/get-products'
 import Billboard from '../../_components/Billboard'
-import getSizes from '@/app/actions/get-sizes'
-import getCategory from '@/app/actions/get-category'
 import Filter from './components/Filter'
-
-import ProductCard from '../../../../components/custom-ui/ProductCard/_ProductCard'
 import MobileFilters from './components/MobileFilters'
-import ProductList from '../../_components/ProductList/_ProductList'
+import getCategory from '@/app/actions/get-category'
+import getColors from '@/app/actions/get-colors'
+import getSizes from '@/app/actions/get-sizes'
+import getProducts from '@/app/actions/get-products'
+import ProductList from './components/ProductList/_ProductList'
 
 export const revalidate = 0
 
@@ -22,6 +20,10 @@ export default async function Page({ params, searchParams }) {
   const colors = await getColors()
   const category = await getCategory(params.categoryId)
 
+  if (!category) {
+    return 
+  }
+  
   return (
     <div className="space-y-4">
       <Billboard data={category.billboard} />
@@ -41,9 +43,13 @@ export default async function Page({ params, searchParams }) {
             />
           </div>
           <div className="col-span-4">
-          <ProductList 
-          items={products}
-          />
+            {/* Pass products as initialData to ProductList */}
+            <ProductList 
+              categoryId={params.categoryId}
+              colorId={searchParams.colorId}
+              sizeId={searchParams.sizeId}
+              initialData={products} // <-- Here
+            />
           </div>
         </div>
       </div>

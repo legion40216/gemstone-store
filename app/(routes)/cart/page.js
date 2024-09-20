@@ -1,5 +1,4 @@
-import CartClient from "./components/CartClient/_CartClient";
-
+import CartClient from "./components/CartClient/_Client";
 export default function page() {
   return (
     <CartClient />
