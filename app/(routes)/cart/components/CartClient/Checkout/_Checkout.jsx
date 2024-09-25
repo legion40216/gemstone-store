@@ -20,8 +20,8 @@ export default function Checkout() {
     postalCode: '',
   });
   const [isOrderPlaced, setIsOrderPlaced] = useState(false);
-  const cart = useCart();
   const [confirmedOrderData, setConfirmedOrderData] = useState(null);
+  const cart = useCart();
 
   useEffect(() => {
     if (cart.items.length === 0 && step !== 'cart' && !isOrderPlaced) {
@@ -64,8 +64,9 @@ export default function Checkout() {
       totalPrice,
       paymentMethod,
     };
-
+    
     setIsOrderPlaced(true);
+
     try {
       await processOrder.placeOrder(orderData, paymentMethod);
       setConfirmedOrderData(orderData);

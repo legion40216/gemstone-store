@@ -16,28 +16,28 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-       
-      <body
-      className={`${font.className} antialiased`}
-      >
-       <Toaster />
-        <ProductModal />
-       <div className="space-y-6">
-        <header className="container-full-content border-b 
-      border-gray-200">
-          <Navbar/>
-        </header>
+      <html lang="en">  
+        <body className={`${font.className} antialiased`}>
+          <Toaster />
+          <ProductModal />
 
-        <main className="container-full-content">
-          <div className="container">
-          {children}
+          <div className="space-y-6">
+            <header className="container-full-content border-b 
+            border-gray-200 sticky top-0 z-30 bg-white"
+            >
+              <Navbar/>
+            </header>
+
+            <main className="container-full-content">
+              <div className="container">
+              {children}
+              </div>
+            </main>
+
+            <Footer/>
           </div>
-        </main>
-
-        <Footer/>
-        </div>
-      </body>
-    </html>
+          
+        </body>
+      </html>
   );
 }

@@ -1,5 +1,5 @@
 import NoResults from '@/components/custom-ui/no-results'
-import ProductCard from '@/components/custom-ui/ProductCard/_ProductCard'
+import ProductCard from '@/app/(routes)/_components/ProductCard/_ProductCard'
 import React from 'react'
 
 export default function ProductItem({

@@ -16,8 +16,8 @@ export default async function page() {
   return (
     <div className="space-y-16">
       <Billboard 
-        data={billboard} 
-        backgroundOverlay={false}
+        imageUrl={billboard.imageUrl}
+        label={billboard.label}
       />
       <ProductList 
         title="Featured products"

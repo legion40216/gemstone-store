@@ -2,33 +2,33 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Heart, ShoppingCart, Plus, Minus, MapPin } from 'lucide-react';
+import { Heart, ShoppingCart, Plus, Minus } from 'lucide-react';
 import useCart from '@/hooks/useCartStore';
 import { toast } from 'sonner';
 import { getCountryName } from '@/lib/getCountries';
 
-export default function ProductDetails({ product }) {
+export default function ProductDetails({ data }) {
   const { items, addItem, getItemCount } = useCart();
   const [count, setCount] = useState(1);
   const [availableQuantity, setAvailableQuantity] = useState(0);
 
   useEffect(() => {
-    const itemCount = getItemCount(product.id);
-    setAvailableQuantity(product.quantity - itemCount);
+    const itemCount = getItemCount(data.id);
+    setAvailableQuantity(data.quantity - itemCount);
     setCount(itemCount > 0 ? itemCount : 1);
-  }, [product, items, getItemCount]);
+  }, [data, items, getItemCount]);
 
 
   const handleAddToCart = () => {
     if (availableQuantity !== 0) {
-      addItem(product, count);
+      addItem(data, count);
     } else {
-      toast.error(`Only ${product.quantity} items available.`);
+      toast.error(`Only ${data.quantity} items available.`);
     }
   };
 
   const incrementCount = () => {
-    if (count < product.quantity) {
+    if (count < data.quantity) {
       setCount(count + 1);
     }
   };
@@ -43,8 +43,8 @@ export default function ProductDetails({ product }) {
     <div className="space-y-10">
       {/* Product Name and Price */}
       <div className="space-y-3">
-        <h1 className="text-2xl font-bold">{product.name}</h1>
-        <p className="text-2xl font-semibold mt-2">${product.price}</p>
+        <h1 className="text-2xl font-bold">{data.name}</h1>
+        <p className="text-2xl font-semibold mt-2">${data.price}</p>
       </div>
 
       {/* Color and Size */}
@@ -53,19 +53,19 @@ export default function ProductDetails({ product }) {
           <h3 className="text-sm font-medium">Color:</h3>
           <div
             className="h-6 w-6 rounded-full"
-            style={{ backgroundColor: product.color.value }}
+            style={{ backgroundColor: data.color.value }}
           ></div>
         </div>
 
         <div className="flex gap-4 items-center">
           <h3 className="text-sm font-medium">Size:</h3>
-          <Badge className="text-base" variant="secondary">{product.size.value}</Badge>
+          <Badge className="text-base" variant="secondary">{data.size.value}</Badge>
         </div>
 
         <div className="flex gap-3">
           <span className="text-muted-foreground">Location:</span>  
           <span className="flex items-center">
-            {getCountryName(product.location)}
+            {getCountryName(data.location)}
           </span>
         </div>
       </div>
@@ -110,9 +110,9 @@ export default function ProductDetails({ product }) {
       <div className="space-y-1">
         <h3 className="text-sm font-medium">Description</h3>
         <p className="text-sm text-muted-foreground">
-          {product.description ||
-            `This beautiful ${product.category.name.toLowerCase()} is a perfect addition to your collection.
-            Its ${product.color.name.toLowerCase()} color and ${product.size.name.toLowerCase()} size make it
+          {data.description ||
+            `This beautiful ${data.category.name.toLowerCase()} is a perfect addition to your collection.
+            Its ${data.color.name.toLowerCase()} color and ${data.size.name.toLowerCase()} size make it
             a versatile piece for any occasion.`}
         </p>
       </div>

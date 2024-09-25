@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { X, Plus, Minus } from "lucide-react";
 import useCart from '@/hooks/useCartStore';
-import Currency from '@/components/custom-ui/ProductCard/currency';
+import Currency from '@/app/(routes)/_components/ProductCard/currency';
 import Link from 'next/link';
 import { toast } from 'sonner';
 import React from 'react';

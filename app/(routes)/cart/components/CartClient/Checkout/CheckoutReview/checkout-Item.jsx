@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { Minus, Plus, Trash2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import useCart from '@/hooks/useCartStore'
-import Currency from '@/components/custom-ui/ProductCard/currency'
+import Currency from '@/app/(routes)/_components/ProductCard/currency'
 import { Badge } from '@/components/ui/badge'
 
 export default function CheckoutItem({ item }) {

@@ -60,8 +60,9 @@ const ProductCard = ({ item }) => {
       </div>
   
       {item?.isFeatured && (
-        <Badge className="absolute top-2 left-2 bg-yellow-400 text-yellow-800 
-        hover:bg-current">
+        <Badge className="absolute top-2 left-2 
+        bg-yellow-400 text-yellow-800 hover:bg-yellow-400"
+        >
           <Star size={12} className="mr-1" /> Featured
         </Badge>
       )}
@@ -83,10 +84,10 @@ const ProductCard = ({ item }) => {
   
       {/* New Location Section */}
       {item?.location && (
-        <div className="text-sm flex justify-between items-center mt-2">
+        <div className="text-sm flex flex-wrap justify-between items-center mt-2">
           <span className="text-muted-foreground">Location:</span>  
           <span className="flex items-center">
-            <MapPin className="w-4 h-4"/>{getCountryName(item.location)}
+          <MapPin className="w-3 h-3 mr-1"/>{getCountryName(item.location)}
           </span>
         </div>
       )}

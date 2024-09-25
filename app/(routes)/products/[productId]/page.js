@@ -4,7 +4,7 @@ import React from 'react'
 import ProductList from '../../_components/ProductList/_ProductList'
 
 import ProductDetails from './components/ProductDetails'
-import Gallery from '@/components/custom-ui/Gallery/_Gallery'
+import Gallery from '@/app/(routes)/products/[productId]/components/Gallery/_Gallery'
 import { Separator } from '@/components/ui/separator'
 
 
@@ -21,11 +21,15 @@ export default async function Page({params}) {
 <div className="space-y-6">
   <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
     <div>
-      <Gallery images={product.images} />
+      <Gallery 
+      images={product.images} 
+      />
     </div>
     <div className=" space-y-8">
       <div>
-        <ProductDetails product={product} />
+        <ProductDetails 
+        data={product} 
+        />
       </div>
     </div>
   </div>

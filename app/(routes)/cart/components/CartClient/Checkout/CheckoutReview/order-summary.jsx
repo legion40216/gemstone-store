@@ -1,5 +1,5 @@
 import React from 'react';
-import Currency from '@/components/custom-ui/ProductCard/currency';
+import Currency from '@/app/(routes)/_components/ProductCard/currency';
 import { Button } from '@/components/ui/button';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';

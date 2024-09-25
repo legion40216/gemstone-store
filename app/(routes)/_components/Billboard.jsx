@@ -1,31 +1,20 @@
 import React from 'react'
-
-export default function Billboard({
-    data,
-    backgroundOverlay=false
-}) {
-  return (
-    <div className="snap-x rounded-xl overflow-hidden">
+  
+  export default function Billboard({ 
+    imageUrl, 
+    label 
+  }) {
+    return (
+      <div className="overflow-hidden rounded-xl">
         <div 
-            className="rounded-xl relative aspect-square 
-            md:aspect-[3/1] overflow-hidden bg-cover"
-            style={{ backgroundImage: `url(${data?.imageUrl})` }}
+          className="relative grid aspect-square place-items-center 
+          overflow-hidden bg-cover md:aspect-[3/1]"
+          style={{ backgroundImage: `url(${imageUrl})` }}
         >
-            {/* Background overlay */}
-            {/* {backgroundOverlay && (
-                <div className="absolute inset-0 opacity-20 z-10"></div>
-            )} */}
-
-            <div className="h-full w-full flex flex-col justify-center 
-            items-center text-center relative z-20"
-            >
-                <div className="font-bold text-3xl sm:text-5xl lg:text-6xl 
-                sm:max-w-xl max-w-xs "
-                >
-                    {data.label}
-                </div>
-            </div>
+          <h2 className="max-w-xs text-3xl font-bold sm:max-w-xl sm:text-5xl lg:text-6xl">
+            {label}
+          </h2>
         </div>
-    </div>
-  )
-}
+      </div>
+    )
+  }

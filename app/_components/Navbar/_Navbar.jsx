@@ -7,7 +7,7 @@ export default async function Navbar() {
   const categories = await getCategories()
 
   return (
-    <nav className="container flex justify-between items-center "
+    <nav className="container flex justify-between items-center"
      >
       <div className="flex items-center gap-4">
         <div className="flex gap-4 items-center">
