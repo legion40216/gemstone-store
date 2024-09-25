@@ -8,7 +8,9 @@ export default function ProductItem({
   return (
     <div>
     {items.length > 0 ? (
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-[repeat(auto-fill,minmax(170px,1fr))]">
+        <div className="grid grid-cols-2 gap-3 
+        sm:grid-cols-[repeat(auto-fill,minmax(170px,1fr))]"
+        >
             {items.map((item) => (
               <ProductCard 
                 key={item.id}

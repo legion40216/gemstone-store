@@ -32,7 +32,9 @@ export default function CheckoutItem({ item }) {
 
   return (
     <li className="flex py-6 border-b">
-      <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+      <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border 
+      border-gray-200"
+      >
         <Image
           src={item.images[0].url}
           alt={item.name}
@@ -42,7 +44,7 @@ export default function CheckoutItem({ item }) {
         />
       </div>
 
-      <div className="ml-4 flex flex-1 flex-col">
+      <div className="ml-2 flex flex-1 flex-col">
         <div>
           <div className="flex justify-between text-base font-medium text-gray-900">
             <h3>{item.name}</h3>

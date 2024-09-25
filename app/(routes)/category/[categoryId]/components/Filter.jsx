@@ -3,9 +3,10 @@ import { Button } from '@/components/ui/button';
 import { useSearchParams } from 'next/navigation';
 import React from 'react';
 
-const Filter = ({ data, name, valueKey }) => {
+const Filter = ({ data, name, valueKey, setOpen }) => {
   const searchParams = useSearchParams();
   const selectedValue = searchParams.get(valueKey);
+  
   const onClick = (id) => {
     // Create a copy of the current URLSearchParams
     const params = new URLSearchParams(searchParams);
@@ -18,10 +19,13 @@ const Filter = ({ data, name, valueKey }) => {
     }
 
     window.history.pushState(null, '', `?${params.toString()}`)
+    
+    // Close the sheet
+    setOpen(false);
   };
 
   return (
-      <div className="mb-8">
+    <div className="mb-8">
       <h3 className="text-lg font-semibold">{name}</h3>
       <hr className="my-4" />
       <div className="flex flex-wrap gap-2">
