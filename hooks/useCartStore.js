@@ -19,16 +19,25 @@ const useCart = create(
         const existingItem = currentItems.find((item) => item.id === data.id);
       
         if (existingItem) {
-          const newCount = Math.min(count, data.quantity);
-          set({
-            items: currentItems.map((item) =>
-              item.id === data.id ? { ...item, count: newCount } : item
-            ),
-          });
+          toast.info('Item is already in cart. You can adjust quantity in the cart.');
+          return;
         } else {
           const newCount = Math.min(count, data.quantity);
           set({ items: [...currentItems, { ...data, count: newCount }] });
           toast.success('Item added to cart.');
+        }
+      },
+
+      updateItemCount: (id, newCount) => {
+        const item = get().items.find((item) => item.id === id);
+        if (item) {
+          const updatedCount = Math.min(newCount, item.quantity);
+          set({
+            items: get().items.map((item) =>
+              item.id === id ? { ...item, count: updatedCount } : item
+            ),
+          });
+          toast.success('Cart updated.');
         }
       },
 

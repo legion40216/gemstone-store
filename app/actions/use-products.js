@@ -6,18 +6,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
-// // Function to simulate a delay
-// const delayedFetcher = (url, delay = 2000) => {
-//   return new Promise((resolve) => {
-//     setTimeout(() => {
-//       fetch(url)
-//         .then((res) => res.json())
-//         .then(resolve);
-//     }, delay); // Adjust the delay time as needed
-//   });
-// };
-
-export const useProducts = ({ categoryId, colorId, sizeId }) => {
+export const useProducts = ({ categoryId, colorId, sizeId, initialData }) => {
   const url = qs.stringifyUrl({
     url: `${API_URL}/products`,
     query: {
@@ -28,14 +17,15 @@ export const useProducts = ({ categoryId, colorId, sizeId }) => {
     },
   });
 
-  const { data, error, isValidating } = useSWR(url, fetcher);
-
-  // Determine if we should show loading state
-  const isLoading = !data && isValidating;
+  const { data, error, isValidating } = useSWR(url, fetcher, {
+    fallbackData: initialData,
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+  });
 
   return {
     products: data,
-    isLoading,
-    isError: error,
+    isLoading: isValidating,
+    isError: !!error,
   };
 };

@@ -8,28 +8,25 @@ import Link from 'next/link';
 import { toast } from 'sonner';
 import React from 'react';
 
-export default function CartItem({ item, setIsOpen }) {
-    const { addItem, removeItem } = useCart();
+export default function CartItem({ item, setOpen }) {
+    const { removeItem, updateItemCount } = useCart();
     const [count, setCount] = useState(item.count);
 
     const handleRemove = () => {
         removeItem(item.id);
     };
 
-    const incrementCount = () => {
-        if (count < item.quantity) {
-            setCount(prev => prev + 1);
-            addItem(item, count + 1);
-        } else {
+    const handleCountChange = (newCount) => {
+        if (newCount > item.quantity) {
             toast.error(`Only ${item.quantity} items available.`);
+            return;
         }
-    };
-
-    const decrementCount = () => {
-        if (count > 1) {
-            setCount(prev => prev - 1);
-            addItem(item, count - 1);
+        if (newCount < 1) {
+            toast.error("Quantity cannot be less than 1.");
+            return;
         }
+        setCount(newCount);
+        updateItemCount(item.id, newCount);
     };
 
     return (
@@ -46,7 +43,7 @@ export default function CartItem({ item, setIsOpen }) {
                     <Link 
                         className="font-medium hover:underline"
                         href={`/products/${item.id}`}
-                        onClick={() => setIsOpen(false)} // Close the cart
+                        onClick={() => setOpen(false)} // Close the cart
                     >
                         {item.name}
                     </Link>
@@ -56,11 +53,19 @@ export default function CartItem({ item, setIsOpen }) {
                     {item.color.name}, {item.size.name}
                 </p>
                 <div className="flex items-center mt-2">
-                    <Button variant="ghost" size="sm" onClick={decrementCount}>
+                    <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        onClick={() => handleCountChange(count - 1)}
+                    >
                         <Minus className="w-4 h-4" />
                     </Button>
                     <span className="px-3">{count}</span>
-                    <Button variant="ghost" size="sm" onClick={incrementCount}>
+                    <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        onClick={() => handleCountChange(count + 1)}
+                    >
                         <Plus className="w-4 h-4" />
                     </Button>
                 </div>
@@ -68,7 +73,7 @@ export default function CartItem({ item, setIsOpen }) {
             <Button 
                 variant="ghost" 
                 onClick={handleRemove} 
-                className="ml-4"
+                className="ml-2 px-2"
             >
                 <X size={15} />
             </Button>

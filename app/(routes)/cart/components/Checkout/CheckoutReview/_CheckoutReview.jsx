@@ -1,3 +1,4 @@
+"use client"
 import React from 'react';
 import OrderSummary from './order-summary';
 import CheckoutItem from './checkout-Item';

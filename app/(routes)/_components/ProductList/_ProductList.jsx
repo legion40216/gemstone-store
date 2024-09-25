@@ -9,7 +9,7 @@ export default function ProductList({
   return (
     <div className="space-y-5">
         <div>
-             <h3 className="font-bold text-3xl">
+             <h3 className="font-bold text-xl">
                 {title}
              </h3>
         </div>

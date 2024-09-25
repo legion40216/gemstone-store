@@ -42,21 +42,25 @@ export default function Cart() {
         <div className="p-4 border-b">
           <h2 className="text-lg font-semibold">Shopping Cart</h2>
         </div>
-        <ScrollArea className="h-[300px]">
+        <ScrollArea className="max-h-[300px] overflow-y-auto">
           {items.length > 0 ? (
             items.map((item) => (
-              <CartItem key={item.id} item={item} />
+              <CartItem 
+              key={item.id} 
+              item={item} 
+              setOpen={setOpen}
+              />
             ))
           ) : (
             <div className="p-4 text-center">
-              <ShoppingBag className="h-16 w-6 text-muted-foreground mx-auto" />
-              <h2 className="mt-4 text-lg font-semibold">
+            <ShoppingBag className="h-16 w-16 text-gray-400 mx-auto" />
+            <h2 className="mt-4 text-lg font-semibold">
                 Your cart is empty
-              </h2>
-              <p className="mt-2 text-sm text-muted-foreground">
+            </h2>
+            <p className="mt-2 text-sm text-gray-500">
                 Add some items to your cart to get started.
-              </p>
-            </div>
+            </p>
+          </div>
           )}
         </ScrollArea>
         {items.length > 0 && (

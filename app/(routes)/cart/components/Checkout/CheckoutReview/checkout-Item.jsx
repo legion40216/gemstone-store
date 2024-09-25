@@ -1,27 +1,34 @@
-import React from 'react'
+"use client"
+import React,{useState} from 'react'
 import Image from 'next/image'
-import { Minus, Plus, Trash2 } from 'lucide-react'
+import { Minus, Plus, Trash2, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import useCart from '@/hooks/useCartStore'
 import Currency from '@/app/(routes)/_components/ProductCard/currency'
 import { Badge } from '@/components/ui/badge'
+import { toast } from 'sonner'
 
 export default function CheckoutItem({ item }) {
   const cart = useCart();
+  const [count, setCount] = useState(item.count);
 
   const handleRemove = () => {
     cart.removeItem(item.id)
   }
 
-  const handleIncrease = () => {
-    cart.addItem(item, item.count + 1)
-  }
-
-  const handleDecrease = () => {
-    if (item.count > 1) {
-      cart.addItem(item, item.count - 1)
+  const handleCountChange = (newCount) => {
+    if (newCount > item.quantity) {
+        toast.error(`Only ${item.quantity} items available.`);
+        return;
     }
-  }
+    if (newCount < 1) {
+        toast.error("Quantity cannot be less than 1.");
+        return;
+    }
+    setCount(newCount);
+    cart.updateItemCount(item.id, newCount);
+};
+
 
   return (
     <li className="flex py-6 border-b">
@@ -42,7 +49,7 @@ export default function CheckoutItem({ item }) {
             <div className="flex flex-col items-end space-y-1">
               <div className="flex items-center space-x-2 text-sm text-gray-600">
                 <Currency value={item.price} />
-                <span>×</span>
+                <X className="h-2 w-2"/>
                 <span>{item.count}</span>
               </div>
               <Badge variant="secondary" className="font-semibold">
@@ -55,11 +62,11 @@ export default function CheckoutItem({ item }) {
         </div>
         <div className="flex items-center justify-between text-sm mt-4">
           <div className="flex items-center space-x-2">
-            <Button size="icon" variant="outline" onClick={handleDecrease}>
+            <Button size="icon" variant="outline" onClick={() => handleCountChange(count - 1)}>
               <Minus className="h-4 w-4" />
             </Button>
             <span>{item.count}</span>
-            <Button size="icon" variant="outline" onClick={handleIncrease}>
+            <Button size="icon" variant="outline" onClick={() => handleCountChange(count + 1)}>
               <Plus className="h-4 w-4" />
             </Button>
           </div>

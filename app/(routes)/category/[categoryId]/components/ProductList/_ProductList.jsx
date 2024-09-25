@@ -1,30 +1,40 @@
-"use client";
-import React from 'react';
-import ProductItem from './product-Item';
-import { useProducts } from '@/app/actions/use-products';
-import ProductSkeleton from './product-skeleton';
+'use client'
+import React from 'react'
+import { useParams, useSearchParams } from 'next/navigation'
+import ProductItem from './product-Item'
+import ProductListSkeleton from '../ProductListSkeleton/_ProductListSkeleton'
+import { useProducts } from '@/app/actions/use-products'
 
-export default function ProductList({ categoryId, colorId, sizeId }) {
-  const { products, isLoading } = useProducts({
+
+export default function ProductList({ initialData }) {
+  const params = useParams()
+  const searchParams = useSearchParams();
+
+  const categoryId = params.categoryId;
+  const colorId = searchParams.get('colorId');
+  const sizeId = searchParams.get('sizeId');
+
+  // Use the useProducts hook to fetch data
+  const { products, isLoading, isError } = useProducts({
     categoryId,
     colorId,
     sizeId,
+    initialData,  // Pass initialData for the initial render
   });
 
-  // Show skeletons if loading or if there are no products yet
-  if (isLoading || !products) {
-    return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {[...Array(6)].map((_, index) => (
-          <ProductSkeleton key={index} />
-        ))}
-      </div>
-    );
+  if (isLoading) {
+    return <ProductListSkeleton />
+  }
+
+  if (isError) {
+    return <div>Error loading products.</div>
   }
 
   return (
     <div className="space-y-5">
-      <ProductItem items={products} /> {/* Use initialData if products are not available */}
+      <ProductItem 
+        items={products}  // Render product items, fetched or from initialData
+      />
     </div>
-  );
+  )
 }

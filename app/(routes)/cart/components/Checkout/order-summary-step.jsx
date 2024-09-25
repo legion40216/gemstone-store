@@ -1,7 +1,6 @@
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { X } from 'lucide-react';
-import { Badge } from '@/components/ui/badge';
 
 export default function OrderSummaryStep({ 
   cart, 
@@ -33,10 +32,8 @@ export default function OrderSummaryStep({
 
             <div className="flex gap-1 items-center">
               <span>${item.price}</span>
-              <X className="h-4 w-4"/>
-              <Badge variant={"secondry"} className={"font-medium text-sm"}>
-                {item.count}
-              </Badge>
+              <X className="h-2 w-2"/>
+              <span>{item.count}</span>
             </div>
           </li>
         ))}

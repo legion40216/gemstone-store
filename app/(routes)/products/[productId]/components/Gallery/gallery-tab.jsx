@@ -1,26 +1,20 @@
-"use client"
-import Image from 'next/image';
-import { cn } from '@/lib/utils'; // Adjust the import path based on where your `cn` function is located
-
-export default function GalleryTab({
-  image,
-  setMainImage,
-  mainImage
+export default function GalleryTab({ 
+  image, 
+  setMainImage, 
+  isActive 
 }) {
   return (
     <div 
-      key={image.id} 
-      className={cn(
-        'aspect-square relative h-20 w-20 rounded-md overflow-hidden cursor-pointer',
-        image.id === mainImage.id && 'ring-2 ring-black'
-      )}
+      className={`cursor-pointer border-2 rounded-md overflow-hidden ${
+        isActive ? 'border-black' : 'border-transparent'
+      }`}
       onClick={() => setMainImage(image)}
     >
-      <Image
+      <img
         src={image.url}
-        alt="Product thumbnail"
-        className="object-cover object-center w-full h-full shadow  border-2 rounded-sm"
-        fill
+        alt={image.alt || "Product thumbnail"}
+        className="w-16 h-16 object-cover"
+        loading="lazy"
       />
     </div>
   )
