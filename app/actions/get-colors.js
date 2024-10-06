@@ -7,7 +7,7 @@ const getColors = async () => {
     return await response.json();
   } catch (error) {
     console.error('Error fetching colorId:', error);
-    throw error; // Re-throw to allow caller to handle if needed
+    throw error; 
   }
 };
 

@@ -22,9 +22,7 @@ const Filter = ({ data, name, valueKey, maxPrice }) => {
     }
 
     window.history.pushState(null, "", `?${params.toString()}`);
-    
-    // Update the selected value state (if needed)
-    // This may not be necessary since selectedValue comes from URL
+
   };
 
   // Handle price range slider changes
@@ -75,8 +73,8 @@ const Filter = ({ data, name, valueKey, maxPrice }) => {
       ) : (
         <RadioGroup onValueChange={onFilterChange} value={selectedValue || "all"}>
           <div className="flex items-center space-x-2">
-            <RadioGroupItem value="all" id={`all-${valueKey}`} />
-            <Label htmlFor={`all-${valueKey}`}>All {name}</Label>
+            <RadioGroupItem value="all" id="all" />
+            <Label htmlFor="all">All {name}</Label>
           </div>
           {data.map((filter) => (
             <div key={filter.id} className="flex items-center space-x-2">

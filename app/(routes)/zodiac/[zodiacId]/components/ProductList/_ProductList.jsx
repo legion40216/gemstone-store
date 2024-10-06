@@ -1,4 +1,3 @@
-
 'use client'
 import React from 'react'
 import { useParams, useSearchParams } from 'next/navigation'
@@ -11,7 +10,7 @@ export default function ProductList({ initialData }) {
   const params = useParams()
   const searchParams = useSearchParams();
 
-  const categoryId = params.categoryId;
+  const zodiacId = params.zodiacId;
   const colorId = searchParams.get('colorId');
   const sizeId = searchParams.get('sizeId');
   const minPrice = searchParams.get('minPrice');
@@ -19,7 +18,7 @@ export default function ProductList({ initialData }) {
 
   // Use the useProducts hook to fetch data
   const { products, isLoading, isError } = useProducts({
-    categoryId,
+    zodiacId,
     colorId,
     sizeId,
     maxPrice,

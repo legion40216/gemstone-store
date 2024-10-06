@@ -5,7 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Heart, ShoppingCart, Plus, Minus } from 'lucide-react';
 import useCart from '@/hooks/useCartStore';
 import { toast } from 'sonner';
-import { getCountryName } from '@/lib/getCountries';
+import { getCountryName } from '@/utils/getCountries';
 
 export default function ProductDetails({ data }) {
   const { items, addItem, getItemCount, updateItemCount} = useCart();

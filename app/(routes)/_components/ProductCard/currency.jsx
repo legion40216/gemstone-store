@@ -1,5 +1,5 @@
 "use client"
-import { formatter } from '@/lib/utils'
+import { formatter } from '@/utils/formatters';
 import React from 'react'
 
 export default function Currency({ value }) {

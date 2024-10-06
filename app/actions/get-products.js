@@ -17,12 +17,20 @@ const getProducts = async (query = {}) => {
       categoryId: query.categoryId,
       colorId: query.colorId,
       sizeId: query.sizeId,
+      minPrice: query.minPrice,
+      maxPrice: query.maxPrice,
+      zodiacId: query.zodiacId,
       isArchived: false,
       ...query,
     },
   });
 
-  return fetcher(url);
+  const products = await fetcher(url);
+
+  // Calculate the maximum price
+  const maxPrice = Math.max(...products.map(product => product.price), 0);
+
+  return { products, maxPrice }; // Return both products and maxPrice
 };
 
 export default getProducts;

@@ -8,7 +8,7 @@ import Currency from './currency';
 import { useRouter } from 'next/navigation';
 import useModalStore from '@/hooks/useModalStore';
 import useCart from '@/hooks/useCartStore';
-import { getCountryName } from '@/lib/getCountries';
+import { getCountryName } from '@/utils/getCountries';
 
 const ProductCard = ({ item }) => {
   const router = useRouter();
